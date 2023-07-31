@@ -1,0 +1,170 @@
+<!-- activity_main.xml -->
+<LinearLayout
+    android:layout_width="match_parent"
+        android:layout_height="match_parent"
+            android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                                android:layout_weight="1"
+                                                        android:padding="8dp" />
+
+                                                            <EditText
+                                                                    android:id="@+id/messageEditText"
+                                                                            android:layout_width="match_parent"
+                                                                                    android:layout_height="wrap_content"
+                                                                                            android:hint="Type your message here" />
+
+                                                                                                <Button
+                                                                                                        android:id="@+id/sendButton"
+                                                                                                                android:layout_width="wrap_content"
+                                                                                                                        android:layout_height="wrap_content"
+                                                                                                                                android:text="Send" />
+                                                                                                                                </LinearLayout>
+                                                                                                                                // Message.java
+                                                                                                                                public class Message {
+                                                                                                                                        private String sender;
+                                                                                                                                            private String content;
+
+                                                                                                                                                public Message(String sender, String content) {
+                                                                                                                                                            this.sender = sender;
+                                                                                                                                                                    this.content = content;
+                                                                                                                                                }
+
+                                                                                                                                                    public String getSender() {
+                                                                                                                                                                return sender;
+                                                                                                                                                    }
+
+                                                                                                                                                        public String getContent() {
+                                                                                                                                                                    return content;
+                                                                                                                                                        }
+                                                                                                                                }
+                                                                                                                                // Message.java
+                                                                                                                                public class Message {
+                                                                                                                                        private String sender;
+                                                                                                                                            private String content;
+
+                                                                                                                                                public Message(String sender, String content) {
+                                                                                                                                                            this.sender = sender;
+                                                                                                                                                                    this.content = content;
+                                                                                                                                                }
+
+                                                                                                                                                    public String getSender() {
+                                                                                                                                                                return sender;
+                                                                                                                                                    }
+
+                                                                                                                                                        public String getContent() {
+                                                                                                                                                                    return content;
+                                                                                                                                                        }
+                                                                                                                                }
+                                                                                                                                // MessageAdapter.java
+                                                                                                                                public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
+                                                                                                                                        private List<Message> messages;
+
+                                                                                                                                            public MessageAdapter(List<Message> messages) {
+                                                                                                                                                        this.messages = messages;
+                                                                                                                                            }
+
+                                                                                                                                                @NonNull
+                                                                                                                                                    @Override
+                                                                                                                                                        public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                                                                                                                                                                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
+                                                                                                                                                                            return new MessageViewHolder(view);
+                                                                                                                                                        }
+
+                                                                                                                                                            @Override
+                                                                                                                                                                public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
+                                                                                                                                                                            Message message = messages.get(position);
+                                                                                                                                                                                    holder.senderTextView.setText(message.getSender());
+                                                                                                                                                                                            holder.contentTextView.setText(message.getContent());
+                                                                                                                                                                }
+
+                                                                                                                                                                    @Override
+                                                                                                                                                                        public int getItemCount() {
+                                                                                                                                                                                    return messages.size();
+                                                                                                                                                                        }
+
+                                                                                                                                                                            static class MessageViewHolder extends RecyclerView.ViewHolder {
+                                                                                                                                                                                        TextView senderTextView;
+                                                                                                                                                                                                TextView contentTextView;
+
+                                                                                                                                                                                                        MessageViewHolder(View itemView) {
+                                                                                                                                                                                                                        super(itemView);
+                                                                                                                                                                                                                                    senderTextView = itemView.findViewById(R.id.senderTextView);
+                                                                                                                                                                                                                                                contentTextView = itemView.findViewById(R.id.contentTextView);
+                                                                                                                                                                                                        }
+                                                                                                                                                                            }
+                                                                                                                                }
+                                                                                                                                <!-- item_message.xml -->
+                                                                                                                                <LinearLayout
+                                                                                                                                    android:layout_width="wrap_content"
+                                                                                                                                        android:layout_height="wrap_content"
+                                                                                                                                            android:orientation="vertical">
+
+                                                                                                                                                <TextView
+                                                                                                                                                        android:id="@+id/senderTextView"
+                                                                                                                                                                android:layout_width="wrap_content"
+                                                                                                                                                                        android:layout_height="wrap_content"
+                                                                                                                                                                                android:textStyle="bold" />
+
+                                                                                                                                                                                    <TextView
+                                                                                                                                                                                            android:id="@+id/contentTextView"
+                                                                                                                                                                                                    android:layout_width="wrap_content"
+                                                                                                                                                                                                            android:layout_height="wrap_content" />
+                                                                                                                                                                                                            </LinearLayout>
+                                                                                                                                                                                                            // MainActivity.java
+                                                                                                                                                                                                            public class MainActivity extends AppCompatActivity {
+                                                                                                                                                                                                                    private List<Message> messages = new ArrayList<>();
+                                                                                                                                                                                                                        private MessageAdapter adapter;
+                                                                                                                                                                                                                            private EditText messageEditText;
+
+                                                                                                                                                                                                                                @Override
+                                                                                                                                                                                                                                    protected void onCreate(Bundle savedInstanceState) {
+                                                                                                                                                                                                                                                super.onCreate(savedInstanceState);
+                                                                                                                                                                                                                                                        setContentView(R.layout.activity_main);
+
+                                                                                                                                                                                                                                                                RecyclerView recyclerView = findViewById(R.id.recyclerView);
+                                                                                                                                                                                                                                                                        messageEditText = findViewById(R.id.messageEditText);
+                                                                                                                                                                                                                                                                                Button sendButton = findViewById(R.id.sendButton);
+
+                                                                                                                                                                                                                                                                                        adapter = new MessageAdapter(messages);
+                                                                                                                                                                                                                                                                                                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                                                                                                                                                                                                                                                                                                        recyclerView.setAdapter(adapter);
+
+                                                                                                                                                                                                                                                                                                                sendButton.setOnClickListener(new View.OnClickListener() {
+                                                                                                                                                                                                                                                                                                                                @Override
+                                                                                                                                                                                                                                                                                                                                            public void onClick(View v) {
+                                                                                                                                                                                                                                                                                                                                                                String messageContent = messageEditText.getText().toString().trim();
+                                                                                                                                                                                                                                                                                                                                                                                if (!messageContent.isEmpty()) {
+                                                                                                                                                                                                                                                                                                                                                                                                        Message message = new Message("You", messageContent);
+                                                                                                                                                                                                                                                                                                                                                                                                                            messages.add(message);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                adapter.notifyItemInserted(messages.size() - 1);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    recyclerView.scrollToPosition(messages.size() - 1);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        messageEditText.getText().clear();
+                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                });
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                })
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                        }
+                                                                                                                                                                            }
+                                                                                                                                                                        }
+                                                                                                                                                                }
+                                                                                                                                                        }
+                                                                                                                                            }
+                                                                                                                                }
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                }
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                }
